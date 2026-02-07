@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-Hant, zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳門補習中介平台</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        .switch-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 14px;
+            padding: 2px 8px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 10px auto;
+            padding: 10px;
+            background: #ffffff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .section-title {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .card {
+            margin-bottom: 10px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .grid-item {
+            background: #ffffff;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            text-align: left;
+            min-width: 0;
+            word-wrap: break-word;
+            max-width: 100%;
+            transition: box-shadow 0.3s ease;
+            font-size: 14px;
+        }
+        .grid-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 5px 0;
+            background: #35424a;
+            color: #ffffff;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 12px;
+        }
+        .register-btn {
+            margin-top: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        #searchBox, #tutorSearchBox {
+            max-width: 120px;
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        .subject-search-group, .student-subject-search-group, .salary-search-group {
+            margin-bottom: 10px;
+        }
+        .subject-search-group label, .student-subject-search-group label, .salary-search-group label {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        #otherRemarkSearch, #otherRemarkStudentSearch {
+            width: 120px;
+            margin-left: 5px;
+            display: none;
+            font-size: 14px;
+        }
+        .show-all-btn {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .subject-group {
+            margin-bottom: 10px;
+        }
+        .subject-group label, .subject-search-group label, .student-subject-search-group label, .salary-search-group label {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        #otherRemarkStudent, #otherRemarkTutor {
+            width: 150px;
+            margin-left: 5px;
+            display: none;
+            font-size: 14px;
+        }
+        .subjects-list {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .subjects-list li {
+            display: inline-flex;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            padding: 4px 8px;
+            background-color: #e9ecef;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #333;
+        }
+        .contact-note {
+            margin-top: 5px;
+            color: #555;
+            padding: 5px;
+            background-color: #f1f1f1;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+        .info-label {
+            font-weight: bold;
+            min-width: 50px;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 5px;
+                padding: 5px;
+            }
+            .section-title {
+                font-size: 16px;
+            }
+            .card-body {
+                padding: 10px;
+            }
+            .form-group label {
+                font-size: 12px;
+            }
+            .form-control {
+                font-size: 12px;
+                padding: 4px;
+            }
+            .btn {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+            .subject-group, .subject-search-group, .student-subject-search-group, .salary-search-group {
+                flex-wrap: wrap;
+                margin-bottom: 5px;
+            }
+            .subject-group label, .subject-search-group label, .student-subject-search-group label, .salary-search-group label {
+                margin-right: 3px;
+                margin-bottom: 3px;
+            }
+            #otherRemarkStudent, #otherRemarkTutor, #otherRemarkSearch, #otherRemarkStudentSearch {
+                width: 100px;
+                margin-left: 3px;
+            }
+            .grid-item {
+                padding: 8px;
+                font-size: 12px;
+            }
+            .info-label {
+                min-width: 40px;
+                font-size: 12px;
+            }
+            .subjects-list li {
+                font-size: 10px;
+                padding: 2px 6px;
+                margin-right: 3px;
+            }
+            .contact-note {
+                font-size: 10px;
+                padding: 3px;
+            }
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #searchBox, #tutorSearchBox {
+                max-width: 100%;
+                margin-bottom: 5px;
+            }
+            .input-group-append {
+                width: 100%;
+            }
+            .input-group-append .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>澳門補習中介平台</h1>
+        <button id="switchMode" class="btn btn-info switch-btn">切換至老師版</button>
+    </header>
+
+    <div class="container">
+        <!-- 學生尋找老師介面 -->
+        <div id="studentSection" class="student-section">
+            <h2 class="section-title">學生/家長介面(右上角可切換版面)</h2>
+            <!-- 學生發布需求表單 -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">刊登學生/家長資訊</h5>
+                    <form id="studentForm">
+                        <div class="form-group">
+                            <label for="studentName">學生/家長稱呼</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group subject-group">
+                            <label>補習科目:</label>
+                            <label><input type="checkbox" name="studentSubject" value="中文"> 中文</label>
+                            <label><input type="checkbox" name="studentSubject" value="英文"> 英文</label>
+                            <label><input type="checkbox" name="studentSubject" value="數學"> 數學</label>
+                            <label><input type="checkbox" name="studentSubject" value="常識(科學)"> 常識(科學)</label>
+                            <label><input type="checkbox" name="studentSubject" value="物理"> 物理</label>
+                            <label><input type="checkbox" name="studentSubject" value="化學"> 化學</label>
+                            <label><input type="checkbox" name="studentSubject" value="生物"> 生物</label>
+                            <label><input type="checkbox" name="studentSubject" value="四校"> 四校</label>
+                            <label><input type="checkbox" name="studentSubject" value="雅思"> 雅思</label>
+                            <label><input type="checkbox" name="studentSubject" value="其他(請備註)"> 其他(請備註)</label>
+                            <input type="text" id="otherRemarkStudent" class="form-control" placeholder="請輸入其他科目" style="display: none; width: 150px; margin-left: 5px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentLocation">補習地點</label>
+                            <input type="text" class="form-control" id="studentLocation" placeholder="例 黑沙環/全澳/氹仔m記" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentTimesalary">可接受時薪範圍 (MOP/小時)</label>
+                            <input type="text" class="form-control" id="studentTimesalary" placeholder="100-150(僅限格式)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentContactNote">聯繫方式/備註</label>
+                            <input type="text" class="form-control" id="studentContactNote" placeholder="例 WECHAT/GMAIL/IG等">
+                        </div>
+                        <button type="submit" class="btn btn-primary">刊登資訊</button> <span>(洗版及其他惡意行為會被列入黑名單)</span>
+                    </form>
+                </div>
+            </div>
+            <!-- 老師列表與搜索 -->
+            <br><br>  <!-- 空兩行 -->
+            <h3 class="section-title">尋找補習老師</h3>
+            <div class="subject-search-group">
+                <label>搜尋科目:</label>
+                <label><input type="checkbox" name="searchSubject" value="中文"> 中文</label>
+                <label><input type="checkbox" name="searchSubject" value="英文"> 英文</label>
+                <label><input type="checkbox" name="searchSubject" value="數學"> 數學</label>
+                <label><input type="checkbox" name="searchSubject" value="常識(科學)"> 常識(科學)</label>
+                <label><input type="checkbox" name="searchSubject" value="物理"> 物理</label>
+                <label><input type="checkbox" name="searchSubject" value="化學"> 化學</label>
+                <label><input type="checkbox" name="searchSubject" value="生物"> 生物</label>
+                <label><input type="checkbox" name="searchSubject" value="四校"> 四校</label>
+                <label><input type="checkbox" name="searchSubject" value="雅思"> 雅思</label>
+                <label><input type="checkbox" name="searchSubject" value="其他(請備註)"> 其他(請備註)</label>
+                <input type="text" id="otherRemarkSearch" class="form-control" placeholder="請輸入其他科目" style="display: none; width: 120px; margin-left: 5px;">
+            </div>
+            <div class="salary-search-group">
+                <label>搜尋時薪 (MOP/小時):</label>
+                <input type="text" id="searchBox" class="form-control" placeholder="100(僅限格式)" style="max-width: 120px; display: inline-block; margin-right: 5px;">
+                <button class="btn btn-primary" type="button" onclick="searchTutors()">搜尋</button>
+            </div>
+            <button id="showAllTutors" class="btn btn-secondary show-all-btn" onclick="showAllTutors()">顯示全部補習老師</button>
+            <div id="tutorList" class="grid-container"></div>
+        </div>
+
+        <!-- 老師找學生介面 -->
+        <div id="tutorSection" class="tutor-section hidden">
+            <h2 class="section-title">老師介面(右上角可切換版面)</h2>
+            <!-- 老師發布廣告表單 -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">刊登補習老師資訊</h5>
+                    <form id="tutorForm">
+                        <div class="form-group">
+                            <label for="tutorName">老師稱呼</label>
+                            <input type="text" class="form-control" id="tutorName" required>
+                        </div>
+                        <div class="form-group subject-group">
+                            <label>補習科目:</label>
+                            <label><input type="checkbox" name="tutorSubject" value="中文"> 中文</label>
+                            <label><input type="checkbox" name="tutorSubject" value="英文"> 英文</label>
+                            <label><input type="checkbox" name="tutorSubject" value="數學"> 數學</label>
+                            <label><input type="checkbox" name="tutorSubject" value="常識(科學)"> 常識(科學)</label>
+                            <label><input type="checkbox" name="tutorSubject" value="物理"> 物理</label>
+                            <label><input type="checkbox" name="tutorSubject" value="化學"> 化學</label>
+                            <label><input type="checkbox" name="tutorSubject" value="生物"> 生物</label>
+                            <label><input type="checkbox" name="tutorSubject" value="四校"> 四校</label>
+                            <label><input type="checkbox" name="tutorSubject" value="雅思"> 雅思</label>
+                            <label><input type="checkbox" name="tutorSubject" value="其他(請備註)"> 其他(請備註)</label>
+                            <input type="text" id="otherRemarkTutor" class="form-control" placeholder="請輸入其他科目" style="display: none; width: 150px; margin-left: 5px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="tutorLocation">補習地點</label>
+                            <input type="text" class="form-control" id="tutorLocation" placeholder="例 黑沙環/全澳/氹仔m記" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tutorTimesalary">期望時薪範圍 (MOP/小時)</label>
+                            <input type="text" class="form-control" id="tutorTimesalary" placeholder="100-150(僅限格式)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tutorContactNote">聯繫方式/備註</label>
+                            <input type="text" class="form-control" id="tutorContactNote" placeholder="例 WECHAT/GMAIL/IG等">
+                        </div>
+                        <button type="submit" class="btn btn-primary">刊登資訊</button> <span>(洗版及其他惡意行為會被列入黑名單)</span>
+                    </form>
+                </div>
+            </div>
+            <!-- 學生列表與搜索 -->
+            <br><br>  <!-- 空兩行 -->
+            <h3 class="section-title">尋找學生</h3>
+            <div class="student-subject-search-group">
+                <label>搜尋科目:</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="中文"> 中文</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="英文"> 英文</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="數學"> 數學</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="常識(科學)"> 常識(科學)</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="物理"> 物理</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="化學"> 化學</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="生物"> 生物</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="四校"> 四校</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="雅思"> 雅思</label>
+                <label><input type="checkbox" name="studentSearchSubject" value="其他(請備註)"> 其他(請備註)</label>
+                <input type="text" id="otherRemarkStudentSearch" class="form-control" placeholder="請輸入其他科目" style="display: none; width: 120px; margin-left: 5px;">
+            </div>
+            <div class="salary-search-group">
+                <label>搜尋時薪 (MOP/小時):</label>
+                <input type="text" id="tutorSearchBox" class="form-control" placeholder="100(僅限格式)" style="max-width: 120px; display: inline-block; margin-right: 5px;">
+                <button class="btn btn-primary" type="button" onclick="searchStudents()">搜尋</button>
+            </div>
+            <button id="showAllStudents" class="btn btn-secondary show-all-btn" onclick="showAllStudents()">顯示全部學生/家長</button>
+            <div id="studentList" class="grid-container"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>本網站只作張貼平台之用，並無任何責任核實個人或機構所提供之訊息，亦不會承擔任何言論發表而產生的責任。 </p>
+        <p>版權所有 © 2025 澳門補習中介平台</p>
+    </footer>
+
+    <!-- Bootstrap JS 和 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- DOMPurify for XSS prevention -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.1/dist/purify.min.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue, set, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCeOcoxjPFCjTxeBjhK6mxgcfYIzunyFfo",
+            authDomain: "tutoring-platform-52c68.firebaseapp.com",
+            databaseURL: "https://tutoring-platform-52c68-default-rtdb.firebaseio.com",
+            projectId: "tutoring-platform-52c68",
+            storageBucket: "tutoring-platform-52c68.firebasestorage.app",
+            messagingSenderId: "167847069550",
+            appId: "1:167847069550:web:e2cb24293df307fa91e37f",
+            measurementId: "G-XK04ENHL08"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // 模擬用戶ID（實際應用中應使用 auth.currentUser.uid）
+        const getUserId = () => "user_" + Math.random().toString(36).substr(2, 9); // 臨時用戶ID
+        let currentUserId = getUserId();
+
+        // 學生版與老師版切換
+        const switchBtn = document.getElementById('switchMode');
+        const studentSection = document.getElementById('studentSection');
+        const tutorSection = document.getElementById('tutorSection');
+        switchBtn.addEventListener('click', () => {
+            if (studentSection.classList.contains('hidden')) {
+                studentSection.classList.remove('hidden');
+                tutorSection.classList.add('hidden');
+                switchBtn.textContent = '切換至補習老師版';
+            } else {
+                studentSection.classList.add('hidden');
+                tutorSection.classList.remove('hidden');
+                switchBtn.textContent = '切換至學生/家長版';
+            }
+        });
+
+        // 顯示/隱藏其他備註輸入框 (發布表單)
+        document.querySelectorAll('input[name="studentSubject"], input[name="tutorSubject"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const otherCheckbox = checkbox.value === '其他(請備註)' ? checkbox : null;
+                const remarkInput = checkbox.form.querySelector('#otherRemark' + (checkbox.name === 'studentSubject' ? 'Student' : 'Tutor'));
+                if (otherCheckbox && otherCheckbox.checked) {
+                    remarkInput.style.display = 'inline-block';
+                } else {
+                    remarkInput.style.display = 'none';
+                    remarkInput.value = '';
+                }
+            });
+        });
+
+        // 顯示/隱藏其他備註輸入框 (搜索)
+        document.querySelectorAll('input[name="searchSubject"], input[name="studentSearchSubject"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const otherCheckbox = checkbox.value === '其他(請備註)' ? checkbox : null;
+                const remarkInput = checkbox.parentElement.querySelector('#otherRemark' + (checkbox.name === 'searchSubject' ? 'Search' : 'StudentSearch'));
+                if (otherCheckbox && otherCheckbox.checked) {
+                    remarkInput.style.display = 'inline-block';
+                } else {
+                    remarkInput.style.display = 'none';
+                    remarkInput.value = '';
+                }
+            });
+        });
+
+        // 檢查當天發布次數
+        async function checkDailyLimit(userId) {
+            const today = new Date().toDateString();
+            const userRef = ref(database, `userLimits/${userId}`);
+            const snapshot = await get(userRef);
+            const data = snapshot.val() || {};
+            const lastDate = data.date;
+            const count = data.count || 0;
+
+            if (lastDate !== today) {
+                // 如果不是今天，重置計數
+                await set(userRef, { date: today, count: 0 });
+                return 0;
+            }
+            return count;
+        }
+
+        // 增加發布次數
+        async function incrementDailyLimit(userId) {
+            const today = new Date().toDateString();
+            const userRef = ref(database, `userLimits/${userId}`);
+            const snapshot = await get(userRef);
+            const data = snapshot.val() || {};
+            const newCount = (data.date === today ? (data.count || 0) : 0) + 1;
+            await set(userRef, { date: today, count: newCount });
+            return newCount;
+        }
+
+        // 學生發布需求
+        document.getElementById('studentForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const studentName = document.getElementById('studentName').value.trim();
+            const subjectCheckboxes = document.querySelectorAll('input[name="studentSubject"]:checked');
+            const otherRemark = document.getElementById('otherRemarkStudent').value.trim();
+            let subject = Array.from(subjectCheckboxes).map(cb => cb.value).join(' ');
+            if (otherRemark && subjectCheckboxes.length && subjectCheckboxes[subjectCheckboxes.length - 1].value === '其他(請備註)') {
+                subject += (subject ? ' ' : '') + '其他(' + otherRemark + ')';
+            }
+            const location = document.getElementById('studentLocation').value.trim();
+            const timesalary = document.getElementById('studentTimesalary').value.trim();
+            const contactNote = document.getElementById('studentContactNote').value.trim();
+
+            if (studentName.length < 2 || location.length < 2 || !/^\d+-\d+$/.test(timesalary) || !subject) {
+                alert("請確保姓名和補習地點至少 2 字元，時薪格式為 '100-150'，並至少選擇一個科目");
+                return;
+            }
+
+            const currentCount = await checkDailyLimit(currentUserId);
+            if (currentCount >= 1) {
+                alert("您今天已達到發布需求的限制（每天最多1則）！");
+                return;
+            }
+
+            push(ref(database, 'students'), {
+                studentName,
+                subject,
+                location,
+                timesalary,
+                contactNote,
+                timestamp: Date.now()
+            }).then(async () => {
+                await incrementDailyLimit(currentUserId);
+                document.getElementById('studentForm').reset();
+                document.getElementById('otherRemarkStudent').style.display = 'none';
+                alert("需求發布成功");
+            }).catch((error) => alert("發布失敗：" + error.message));
+        });
+
+        // 老師發布廣告
+        document.getElementById('tutorForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const tutorName = document.getElementById('tutorName').value.trim();
+            const subjectCheckboxes = document.querySelectorAll('input[name="tutorSubject"]:checked');
+            const otherRemark = document.getElementById('otherRemarkTutor').value.trim();
+            let subject = Array.from(subjectCheckboxes).map(cb => cb.value).join(' ');
+            if (otherRemark && subjectCheckboxes.length && subjectCheckboxes[subjectCheckboxes.length - 1].value === '其他(請備註)') {
+                subject += (subject ? ' ' : '') + '其他(' + otherRemark + ')';
+            }
+            const location = document.getElementById('tutorLocation').value.trim();
+            const timesalary = document.getElementById('tutorTimesalary').value.trim();
+            const contactNote = document.getElementById('tutorContactNote').value.trim();
+
+            if (tutorName.length < 2 || location.length < 2 || !/^\d+-\d+$/.test(timesalary) || !subject) {
+                alert("請確保姓名和補習地點至少 2 字元，時薪格式為 '100-150'，並至少選擇一個科目");
+                return;
+            }
+
+            const currentCount = await checkDailyLimit(currentUserId);
+            if (currentCount >= 1) {
+                alert("您今天已達到發布廣告的限制（每天最多1則）！");
+                return;
+            }
+
+            push(ref(database, 'tutors'), {
+                tutorName,
+                subject,
+                location,
+                timesalary,
+                contactNote,
+                timestamp: Date.now()
+            }).then(async () => {
+                await incrementDailyLimit(currentUserId);
+                document.getElementById('tutorForm').reset();
+                document.getElementById('otherRemarkTutor').style.display = 'none';
+                alert("廣告發布成功");
+            }).catch((error) => alert("發布失敗：" + error.message));
+        });
+
+        // 載入老師廣告（按時間戳倒序）
+        onValue(ref(database, 'tutors'), (snapshot) => {
+            const tutors = snapshot.val();
+            const tutorList = document.getElementById('tutorList');
+            tutorList.innerHTML = tutors ? '' : '<p>目前沒有老師廣告</p>';
+            if (tutors) {
+                const tutorArray = Object.entries(tutors).sort((a, b) => b[1].timestamp - a[1].timestamp);
+                tutorList.innerHTML = '';
+                tutorArray.forEach(([id, tutor]) => {
+                    const tutorItem = document.createElement('div');
+                    tutorItem.classList.add('grid-item', 'tutor');
+                    tutorItem.setAttribute('data-subject', tutor.subject);
+                    tutorItem.setAttribute('data-timesalary', tutor.timesalary);
+                    tutorItem.innerHTML = `
+                        <div class="info-row"><span class="info-label">姓名：</span>${DOMPurify.sanitize(tutor.tutorName)}</div>
+                        <div class="info-row"><span class="info-label">科目：</span><ul class="subjects-list">${tutor.subject.split(' ').map(s => `<li>${s}</li>`).join('')}</ul></div>
+                        <div class="info-row"><span class="info-label">補習地點：</span>${DOMPurify.sanitize(tutor.location)}</div>
+                        <div class="info-row"><span class="info-label">期望薪資：</span>${DOMPurify.sanitize(tutor.timesalary)} MOP/小時</div>
+                        <div class="info-row"><span class="info-label">聯繫方式/備註：</span>${DOMPurify.sanitize(tutor.contactNote || '無')}</div>
+                    `;
+                    tutorList.appendChild(tutorItem);
+                });
+            }
+        }, (error) => {
+            console.error("載入老師廣告失敗:", error);
+            document.getElementById('tutorList').innerHTML = '<p>載入失敗，請稍後重試</p>';
+        });
+
+        // 載入學生需求（按時間戳倒序）
+        onValue(ref(database, 'students'), (snapshot) => {
+            const students = snapshot.val();
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = students ? '' : '<p>目前沒有學生需求</p>';
+            if (students) {
+                const studentArray = Object.entries(students).sort((a, b) => b[1].timestamp - a[1].timestamp);
+                studentList.innerHTML = '';
+                studentArray.forEach(([id, student]) => {
+                    const studentItem = document.createElement('div');
+                    studentItem.classList.add('grid-item');
+                    studentItem.setAttribute('data-subject', student.subject);
+                    studentItem.setAttribute('data-timesalary', student.timesalary);
+                    studentItem.innerHTML = `
+                        <div class="info-row"><span class="info-label">姓名：</span>${DOMPurify.sanitize(student.studentName)}</div>
+                        <div class="info-row"><span class="info-label">科目：</span><ul class="subjects-list">${student.subject.split(' ').map(s => `<li>${s}</li>`).join('')}</ul></div>
+                        <div class="info-row"><span class="info-label">補習地點：</span>${DOMPurify.sanitize(student.location)}</div>
+                        <div class="info-row"><span class="info-label">可接受薪資：</span>${DOMPurify.sanitize(student.timesalary)} MOP/小時</div>
+                        <div class="info-row"><span class="info-label">聯繫方式/備註：</span>${DOMPurify.sanitize(student.contactNote || '無')}</div>
+                    `;
+                    studentList.appendChild(studentItem);
+                });
+            }
+        }, (error) => {
+            console.error("載入學生需求失敗:", error);
+            document.getElementById('studentList').innerHTML = '<p>載入失敗，請稍後重試</p>';
+        });
+
+        // 搜索老師（按科目和時薪）
+        window.searchTutors = function() {
+            const subjectCheckboxes = document.querySelectorAll('input[name="searchSubject"]:checked');
+            const otherRemark = document.getElementById('otherRemarkSearch').value.trim().toLowerCase();
+            const searchSubjects = Array.from(subjectCheckboxes).map(cb => cb.value.toLowerCase());
+            if (otherRemark && subjectCheckboxes.length && subjectCheckboxes[subjectCheckboxes.length - 1].value === '其他(請備註)') {
+                searchSubjects.push('其他(' + otherRemark + ')');
+            }
+            const salaryInput = parseInt(document.getElementById('searchBox').value) || 0;
+            const tutors = document.getElementsByClassName('tutor');
+            for (let tutor of tutors) {
+                const subjects = tutor.getAttribute('data-subject').toLowerCase().split(' ').map(s => s.trim());
+                const range = tutor.getAttribute('data-timesalary').split('-');
+                const minSalary = parseInt(range[0]) || 0;
+                const maxSalary = parseInt(range[1]) || Infinity;
+                const subjectMatch = searchSubjects.length === 0 || searchSubjects.some(s => subjects.includes(s.toLowerCase()));
+                const salaryMatch = !salaryInput || (salaryInput >= minSalary && salaryInput <= maxSalary);
+                tutor.classList.toggle('hidden', !(subjectMatch && salaryMatch));
+            }
+        };
+
+        // 顯示所有老師
+        window.showAllTutors = function() {
+            const tutors = document.getElementsByClassName('tutor');
+            for (let tutor of tutors) {
+                tutor.classList.remove('hidden');
+            }
+            document.querySelectorAll('input[name="searchSubject"]').forEach(cb => cb.checked = false);
+            document.getElementById('otherRemarkSearch').style.display = 'none';
+            document.getElementById('otherRemarkSearch').value = '';
+            document.getElementById('searchBox').value = '';
+        };
+
+        // 搜索學生（按需求科目和時薪）
+        window.searchStudents = function() {
+            const subjectCheckboxes = document.querySelectorAll('input[name="studentSearchSubject"]:checked');
+            const otherRemark = document.getElementById('otherRemarkStudentSearch').value.trim().toLowerCase();
+            const searchSubjects = Array.from(subjectCheckboxes).map(cb => cb.value.toLowerCase());
+            if (otherRemark && subjectCheckboxes.length && subjectCheckboxes[subjectCheckboxes.length - 1].value === '其他(請備註)') {
+                searchSubjects.push('其他(' + otherRemark + ')');
+            }
+            const salaryInput = parseInt(document.getElementById('tutorSearchBox').value) || 0;
+            const students = document.getElementsByClassName('grid-item');
+            for (let student of students) {
+                const subjects = student.getAttribute('data-subject').toLowerCase().split(' ').map(s => s.trim());
+                const range = student.getAttribute('data-timesalary').split('-');
+                const minSalary = parseInt(range[0]) || 0;
+                const maxSalary = parseInt(range[1]) || Infinity;
+                const subjectMatch = searchSubjects.length === 0 || searchSubjects.some(s => subjects.includes(s.toLowerCase()));
+                const salaryMatch = !salaryInput || (salaryInput >= minSalary && salaryInput <= maxSalary);
+                student.classList.toggle('hidden', !(subjectMatch && salaryMatch));
+            }
+        };
+
+        // 顯示所有學生
+        window.showAllStudents = function() {
+            const students = document.getElementsByClassName('grid-item');
+            for (let student of students) {
+                student.classList.remove('hidden');
+            }
+            document.querySelectorAll('input[name="studentSearchSubject"]').forEach(cb => cb.checked = false);
+            document.getElementById('otherRemarkStudentSearch').style.display = 'none';
+            document.getElementById('otherRemarkStudentSearch').value = '';
+            document.getElementById('tutorSearchBox').value = '';
+        };
+    </script>
+</body>
+</html>
